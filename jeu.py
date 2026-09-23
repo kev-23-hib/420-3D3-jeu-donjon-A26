@@ -1,16 +1,23 @@
-from ennemi import Ennemi
+from models.ennemi_agressif import EnnemiAgressif
+from models.ennemi_defensif import EnnemiDefensif
+from models.ennemi_aleatoire import EnnemiAleatoire
+from models.ennemi_furtif import EnnemiFurtif
+
+
 
 class Jeu:
     def __init__(self):
         self.heros_hp = 100
         self.heros_hp_max = 100
         self.heros_attaque = 20
+        #self.compoortement = type(self).__name__  # "Jeu"
 
         self.ennemis = [
-            Ennemi("Goblin", 50, 10, "agressif"),
-            Ennemi("Dragon", 100, 20, "defensif"),
-            Ennemi("Voleur", 30, 15, "furtif"),
-        ]
+    EnnemiAgressif("Goblin",  hp=50,  attaque=8),
+    EnnemiDefensif("Dragon",  hp=100, attaque=12),
+    EnnemiAleatoire("Spectre", hp=40, attaque=10),
+    EnnemiFurtif("Voleur",   hp=30,  attaque=10),
+]
 
     def ennemis_vivants(self):
         return [e for e in self.ennemis if e.est_vivant()]
@@ -28,7 +35,7 @@ class Jeu:
             print("\nEnnemis :")
             vivants = self.ennemis_vivants()
             for i, ennemi in enumerate(vivants, 1):
-                print(f"  [{i}] {ennemi.nom} (HP: {ennemi.hp}/{ennemi.hp_max}) — {ennemi.comportement}")
+                print(f"  [{i}] {ennemi.nom} (HP: {ennemi.hp}/{ennemi.hp_max}) — {type(ennemi).__name__}")
             print()
 
             # Demander l'action du héros
